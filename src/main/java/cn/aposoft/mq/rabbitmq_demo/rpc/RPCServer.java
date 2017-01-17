@@ -1,4 +1,4 @@
-package cn.aposoft.mq.rabbitmq_demo;
+package cn.aposoft.mq.rabbitmq_demo.rpc;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
@@ -32,9 +32,12 @@ public class RPCServer {
         Channel channel = null;
         try {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-
+            // factory.setHost("localhost");
+            factory.setHost("192.168.63.133");
+            factory.setConnectionTimeout(600000);
+            factory.setHandshakeTimeout(600000);
             connection = factory.newConnection();
+            System.out.println("Connection connected:");
             channel = connection.createChannel();
 
             channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
@@ -58,10 +61,10 @@ public class RPCServer {
                     String message = new String(delivery.getBody(), "UTF-8");
                     int n = Integer.parseInt(message);
 
-//                    System.out.println(" [.] fib(" + message + ")");
+                    // System.out.println(" [.] fib(" + message + ")");
                     response = "" + fib(n);
                 } catch (Exception e) {
-//                    System.out.println(" [.] " + e.toString());
+                    // System.out.println(" [.] " + e.toString());
                     response = "";
                 } finally {
                     channel.basicPublish("", props.getReplyTo(), replyProps, response.getBytes("UTF-8"));

@@ -1,6 +1,5 @@
-package cn.aposoft.mq.rabbitmq_demo;
+package cn.aposoft.mq.rabbitmq_demo.rpc;
 
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
@@ -21,8 +20,14 @@ public class RPCClient {
 
     public RPCClient() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        // factory.setHost("localhost");
+        factory.setHost("192.168.63.133");
+        factory.setConnectionTimeout(600000);
+        factory.setHandshakeTimeout(600000);
+        long begin = System.currentTimeMillis();
         connection = factory.newConnection();
+        long end = System.currentTimeMillis();
+        System.out.println("Connection connected:" + (end - begin));
         channel = connection.createChannel();
 
         replyQueueName = channel.queueDeclare().getQueue();
@@ -33,7 +38,7 @@ public class RPCClient {
 
     public String call(String message) throws Exception {
         String response = null;
-        String corrId = tName+ai.incrementAndGet();//UUID.randomUUID().toString();
+        String corrId = tName + ai.incrementAndGet();// UUID.randomUUID().toString();
 
         BasicProperties props = new BasicProperties.Builder().correlationId(corrId).replyTo(replyQueueName).build();
 
@@ -61,9 +66,9 @@ public class RPCClient {
             fibonacciRpc = new RPCClient();
             long begin = System.currentTimeMillis();
             for (int j = 0; j < 1000; j++) {
-                for (int i = 0; i < 90; i++) {
+                for (int i = 0; i < 200; i++) {
                     // System.out.println(" [x] Requesting fib(" + i + ")");
-                    response = fibonacciRpc.call(String.valueOf(5));
+                    response = fibonacciRpc.call(String.valueOf(1));
                     // System.out.println(" [.] Got '" + response + "'");
                 }
             }
