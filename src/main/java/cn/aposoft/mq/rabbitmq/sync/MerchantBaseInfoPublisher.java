@@ -6,43 +6,43 @@ import com.rabbitmq.client.ConnectionFactory;
 
 public class MerchantBaseInfoPublisher {
 
-    private static final String EXCHANGE_NAME = "sync_cf_merchant_base_info";
+	private static final String EXCHANGE_NAME = "sync_cf_merchant_base_info";
 
-    public static void main(String[] argv) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.63.132");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+	public static void main(String[] argv) throws Exception {
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		Connection connection = factory.newConnection();
+		Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+		channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
 
-        String message = getMessage(argv);
-        
-        channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
-        System.out.println(" [x] Sent '" + message + "'");
-        // try {
-        // Thread.sleep(1000 * 30);
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
-        channel.close();
-        connection.close();
-    }
+		String message = getMessage(argv);
 
-    private static String getMessage(String[] strings) {
-        if (strings.length < 1)
-            return "info: Hello World!";
-        return joinStrings(strings, " ");
-    }
+		channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
+		System.out.println(" [x] Sent '" + message + "'");
+		// try {
+		// Thread.sleep(1000 * 30);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		channel.close();
+		connection.close();
+	}
 
-    private static String joinStrings(String[] strings, String delimiter) {
-        int length = strings.length;
-        if (length == 0)
-            return "";
-        StringBuilder words = new StringBuilder(strings[0]);
-        for (int i = 1; i < length; i++) {
-            words.append(delimiter).append(strings[i]);
-        }
-        return words.toString();
-    }
+	private static String getMessage(String[] strings) {
+		if (strings.length < 1)
+			return "info: Hello World!";
+		return joinStrings(strings, " ");
+	}
+
+	private static String joinStrings(String[] strings, String delimiter) {
+		int length = strings.length;
+		if (length == 0)
+			return "";
+		StringBuilder words = new StringBuilder(strings[0]);
+		for (int i = 1; i < length; i++) {
+			words.append(delimiter).append(strings[i]);
+		}
+		return words.toString();
+	}
 }

@@ -1,4 +1,4 @@
-package cn.aposoft.mq.rabbitmq_demo.rpc;
+package cn.aposoft.mq.rabbitmq.rabbitmq_demo.rpc;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -82,6 +82,7 @@ public class RPCClient {
                 try {
                     fibonacciRpc.close();
                 } catch (Exception ignore) {
+                	
                 }
             }
         }

@@ -17,7 +17,7 @@ public class MerchantBaseInfoReceiver {
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.63.132");
+        factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status表示log4j2自身的输出日志级别，monitorInterval表示过多少秒后重新读取配置文件 -->
+<configuration status="WARN" monitorInterval="3000">
+	<properties>
+		<property name="application">rabbitmq-demo</property>
+		<property name="log.home">/app/appuser/logs/${application}</property>
+		<property name="file.name">${application}</property>
+		<!-- <property name="log.pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level 
+			%c{1.}.%M(%L) - %msg%xEx%n</property> -->
+		<property name="log.pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %X{X-B3-TraceId} %X{X-B3-SpanId} %X{X-B3-ParentSpanId} %X{X-Span-Export} [%t] %-5level  %l %msg%xEx %n</property>
+		<property name="log.arms.pattern">%d{yyyy-MM-dd HH:mm:ss.SSS}|[%t]|%msg%xEx%n
+		</property>
+	</properties>
+	<!-- 先定义所有的appender -->
+	<appenders>
+		<!-- 这个输出控制台的配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!-- 控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<!-- 输出日志的格式 -->
+			<PatternLayout pattern="${log.pattern}" />
+		</Console>
+	</appenders>
+
+	<loggers>
+		<Root level="INFO" includeLocation="true">
+			<AppenderRef ref="Console" />
+		</Root>
+	</loggers>
+</configuration>

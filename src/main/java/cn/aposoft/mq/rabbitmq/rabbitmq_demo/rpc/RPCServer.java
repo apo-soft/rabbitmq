@@ -1,4 +1,4 @@
-package cn.aposoft.mq.rabbitmq_demo.rpc;
+package cn.aposoft.mq.rabbitmq.rabbitmq_demo.rpc;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;

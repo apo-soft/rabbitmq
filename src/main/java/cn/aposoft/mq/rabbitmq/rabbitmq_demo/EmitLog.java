@@ -1,4 +1,4 @@
-package cn.aposoft.mq.rabbitmq_demo;
+package cn.aposoft.mq.rabbitmq.rabbitmq_demo;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

@@ -1,4 +1,4 @@
-package cn.aposoft.mq.rabbitmq_demo;
+package cn.aposoft.mq.rabbitmq.rabbitmq_demo;
 
 /**
  * Hello world!
