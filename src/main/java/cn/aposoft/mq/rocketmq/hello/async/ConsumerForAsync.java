@@ -17,7 +17,7 @@ public class ConsumerForAsync {
 		DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_for_async");
 
 		// Specify name server addresses.
-		consumer.setNamesrvAddr("localhost:9876");
+		consumer.setNamesrvAddr("192.168.81.129:9876");
 
 		// Subscribe one more more topics to consume.
 		consumer.subscribe("Jodie_topic_1023", "*");

@@ -9,6 +9,7 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+
 public class ConsumerPull {
 	private static final Map<MessageQueue, Long> offseTable = new HashMap<MessageQueue, Long>();
 
@@ -18,7 +19,7 @@ public class ConsumerPull {
 		DefaultLitePullConsumer consumer = new DefaultLitePullConsumer("please_rename_unique_group_name");
 
 		// Specify name server addresses.
-		consumer.setNamesrvAddr("localhost:9876");
+		consumer.setNamesrvAddr("192.168.81.129:9876");
 		consumer.start();
 		System.out.printf("Consumer Started.%n");
 		consumer.subscribe("Jodie_topic_1023", "*");

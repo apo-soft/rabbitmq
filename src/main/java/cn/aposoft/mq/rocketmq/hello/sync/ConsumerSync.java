@@ -17,7 +17,7 @@ public class ConsumerSync {
 		DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
 
 		// Specify name server addresses.
-		consumer.setNamesrvAddr("localhost:9876");
+		consumer.setNamesrvAddr("192.168.81.129:9876");
 
 		// Subscribe one more more topics to consume.
 		consumer.subscribe("TopicTest", "*");
